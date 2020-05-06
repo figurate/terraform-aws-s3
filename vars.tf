@@ -2,6 +2,16 @@ variable "bucket" {
   description = "Name of the S3 bucket"
 }
 
+variable "acl" {
+  description = "Predefined ACL to apply"
+  default     = "private"
+}
+
+variable "policy" {
+  description = "Identifier for a predefined policy to apply"
+  default     = ""
+}
+
 variable "suffix_enabled" {
   description = "Indicates whether to append the bucket name with a unique string to prevent conflicts"
   type        = bool
@@ -39,5 +49,15 @@ variable "encryption_key" {
 
 variable "logging_bucket" {
   description = "Another S3 bucket used to capture audit logs"
+  default     = ""
+}
+
+variable "public_read_cidr" {
+  description = "A CIDR IP range for restricted read access to public buckets"
+  default     = ""
+}
+
+variable "website_redirect" {
+  description = "FQDN target for redirect of all website requests"
   default     = ""
 }

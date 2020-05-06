@@ -2,14 +2,9 @@ variable "bucket" {
   description = "Name of the S3 bucket"
 }
 
-variable "acl" {
-  description = "Predefined ACL to apply"
-  default     = "private"
-}
-
 variable "policy" {
   description = "Identifier for a predefined policy to apply"
-  default     = ""
+  default     = "public_read"
 }
 
 variable "suffix_enabled" {
@@ -34,6 +29,12 @@ variable "noncurrent_version_expiration" {
   description = "Age of non-current object versions (days) before they are deleted"
   type = number
   default = 0
+}
+
+variable "encrypted" {
+  description = "Enable server-side encryption"
+  type        = bool
+  default     = false
 }
 
 variable "encryption_key" {

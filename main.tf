@@ -4,7 +4,8 @@ resource "aws_s3_bucket" "bucket" {
   count = var.suffix_enabled ? 0 : 1
 
   bucket = var.bucket
-  acl    = "private"
+  acl    = var.acl
+  policy = var.policy != "" ? local.policies[var.policy] : null
 
   dynamic "lifecycle_rule" {
     for_each = var.expiration_days > 0 ? [1] : []
@@ -47,6 +48,13 @@ resource "aws_s3_bucket" "bucket" {
     content {
       target_bucket = var.logging_bucket
       target_prefix = var.bucket
+    }
+  }
+
+  dynamic "website" {
+    for_each = var.website_redirect != "" ? [1] : []
+    content {
+      redirect_all_requests_to = var.website_redirect
     }
   }
 }
