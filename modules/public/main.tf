@@ -2,7 +2,7 @@ module "public_bucket" {
   source = "../.."
 
   bucket = var.bucket
-  acl = 'public-read'
+  acl = "public-read"
   policy = var.policy
   suffix_enabled = var.suffix_enabled
   expiration_days = var.expiration_days
