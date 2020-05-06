@@ -1,7 +1,7 @@
 module "encrypted_bucket" {
   source = "../.."
 
-  bucket_name = var.bucket_name
+  bucket = var.bucket
   suffix_enabled = var.suffix_enabled
   expiration_days = var.expiration_days
   versioned = var.versioned

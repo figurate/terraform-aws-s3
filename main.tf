@@ -3,7 +3,7 @@ data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket" "bucket" {
   count = var.suffix_enabled ? 0 : 1
 
-  bucket = var.bucket_name
+  bucket = var.bucket
   acl    = "private"
 
   dynamic "lifecycle_rule" {
