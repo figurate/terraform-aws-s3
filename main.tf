@@ -1,7 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "bucket" {
-  count = var.prefix_enabled ? 0 : 1
+  count = var.suffix_enabled ? 0 : 1
 
   bucket = var.bucket_name
   acl    = "private"

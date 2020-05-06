@@ -2,8 +2,8 @@ variable "bucket_name" {
   description = "Name of the S3 bucket"
 }
 
-variable "prefix_enabled" {
-  description = "Indicates whether to prefix bucket name with the account id"
+variable "suffix_enabled" {
+  description = "Indicates whether to append the bucket name with a unique string to prevent conflicts"
   type = bool
   default = true
 }

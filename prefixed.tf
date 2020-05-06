@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "prefixed_bucket" {
-  count = var.prefix_enabled ? 1 : 0
+  count = var.suffix_enabled ? 1 : 0
 
   bucket_prefix = var.bucket_name
   acl           = "private"
