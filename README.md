@@ -23,5 +23,7 @@ No requirements.
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| bucket\_id | n/a |
 
