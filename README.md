@@ -30,4 +30,6 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | bucket\_id | n/a |
+| hosted\_zone\_id | n/a |
+| website\_domain | n/a |
 
