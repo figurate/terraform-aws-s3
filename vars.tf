@@ -36,3 +36,8 @@ variable "encryption_key" {
   description = "The KMS master key used for server-side encryption"
   default     = ""
 }
+
+variable "logging_bucket" {
+  description = "Another S3 bucket used to capture audit logs"
+  default     = ""
+}

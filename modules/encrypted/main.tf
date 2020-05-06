@@ -7,4 +7,5 @@ module "encrypted_bucket" {
   versioned = var.versioned
   noncurrent_version_expiration = var.noncurrent_version_expiration
   encryption_key = var.encryption_key
+  logging_bucket = var.logging_bucket
 }

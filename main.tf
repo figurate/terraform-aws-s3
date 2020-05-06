@@ -41,6 +41,14 @@ resource "aws_s3_bucket" "bucket" {
       }
     }
   }
+
+  dynamic "logging" {
+    for_each = var.logging_bucket != "" ? [1] : []
+    content {
+      target_bucket = var.logging_bucket
+      target_prefix = var.bucket
+    }
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket" {
