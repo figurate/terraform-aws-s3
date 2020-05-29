@@ -1,3 +1,10 @@
+/**
+ * # ![AWS](aws-logo.png) S3 Bucket
+ *
+ * Purpose: Provision S3 Bucket in AWS.
+ *
+ * Rationale: Apply standards and constraints to S3 Buckets.
+ */
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "bucket" {

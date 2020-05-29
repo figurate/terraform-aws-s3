@@ -14,26 +14,26 @@ variable "policy" {
 
 variable "suffix_enabled" {
   description = "Indicates whether to append the bucket name with a unique string to prevent conflicts"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "expiration_days" {
   description = "Age of bucket objects (days) before they are deleted"
-  type = number
-  default = 0
+  type        = number
+  default     = 0
 }
 
 variable "versioned" {
   description = "Enable bucket versioning"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "noncurrent_version_expiration" {
   description = "Age of non-current object versions (days) before they are deleted"
-  type = number
-  default = 0
+  type        = number
+  default     = 0
 }
 
 variable "encryption_key" {
@@ -42,7 +42,7 @@ variable "encryption_key" {
 
 variable "logging_bucket" {
   description = "Another S3 bucket used to capture audit logs"
-  default = ""
+  default     = ""
 }
 
 variable "public_read_cidr" {
