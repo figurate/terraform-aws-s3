@@ -3,6 +3,7 @@ resource "aws_s3_bucket" "prefixed_bucket" {
 
   bucket_prefix = var.bucket
   acl           = "private"
+  policy        = var.policy != "" ? local.policies[var.policy] : null
 
   dynamic "lifecycle_rule" {
     for_each = var.expiration_days > 0 ? [1] : []
@@ -14,8 +15,10 @@ resource "aws_s3_bucket" "prefixed_bucket" {
     }
   }
 
+  #checkov:skip=CKV_AWS_21:Dynamic versioning block
   versioning {
-    enabled = var.versioned
+    enabled    = var.versioned
+    mfa_delete = true
   }
 
   dynamic "lifecycle_rule" {
@@ -28,6 +31,7 @@ resource "aws_s3_bucket" "prefixed_bucket" {
     }
   }
 
+  #checkov:skip=CKV_AWS_19:Dynamic encryption block
   dynamic "server_side_encryption_configuration" {
     for_each = var.encrypted ? [1] : []
     content {
@@ -39,4 +43,29 @@ resource "aws_s3_bucket" "prefixed_bucket" {
       }
     }
   }
+
+  dynamic "logging" {
+    for_each = var.logging_bucket != "" ? [1] : []
+    content {
+      target_bucket = var.logging_bucket
+      target_prefix = var.bucket
+    }
+  }
+
+  dynamic "website" {
+    for_each = var.website_redirect != "" ? [1] : []
+    content {
+      redirect_all_requests_to = var.website_redirect
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "prefixed_bucket" {
+  count = var.suffix_enabled ? 1 : 0
+
+  bucket                  = aws_s3_bucket.prefixed_bucket[0].id
+  restrict_public_buckets = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
 }

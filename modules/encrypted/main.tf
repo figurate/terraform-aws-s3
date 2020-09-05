@@ -8,6 +8,7 @@ module "encrypted_bucket" {
   expiration_days               = var.expiration_days
   versioned                     = var.versioned
   noncurrent_version_expiration = var.noncurrent_version_expiration
+  encrypted                     = true
   encryption_key                = var.encryption_key
   logging_bucket                = var.logging_bucket
   public_read_cidr              = var.public_read_cidr

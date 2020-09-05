@@ -24,8 +24,10 @@ resource "aws_s3_bucket" "bucket" {
     }
   }
 
+  #checkov:skip=CKV_AWS_21:Dynamic versioning block
   versioning {
-    enabled = var.versioned
+    enabled    = var.versioned
+    mfa_delete = true
   }
 
   dynamic "lifecycle_rule" {
@@ -38,6 +40,7 @@ resource "aws_s3_bucket" "bucket" {
     }
   }
 
+  #checkov:skip=CKV_AWS_19:Dynamic encryption block
   dynamic "server_side_encryption_configuration" {
     for_each = var.encrypted ? [1] : []
     content {
@@ -67,8 +70,11 @@ resource "aws_s3_bucket" "bucket" {
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket" {
+  count = var.suffix_enabled ? 0 : 1
+
   bucket                  = aws_s3_bucket.bucket[0].id
   restrict_public_buckets = true
   block_public_acls       = true
   block_public_policy     = true
+  ignore_public_acls      = true
 }

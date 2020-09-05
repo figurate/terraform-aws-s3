@@ -27,7 +27,7 @@ variable "expiration_days" {
 variable "versioned" {
   description = "Enable bucket versioning"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "noncurrent_version_expiration" {
@@ -39,7 +39,7 @@ variable "noncurrent_version_expiration" {
 variable "encrypted" {
   description = "Enable server-side encryption"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "encryption_key" {
