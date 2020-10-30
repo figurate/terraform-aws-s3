@@ -47,7 +47,7 @@ variable "logging_bucket" {
   default     = ""
 }
 
-variable "public_read_cidr" {
+variable "public_read_whitelist" {
   description = "A CIDR IP range for restricted read access to public buckets"
   default     = ""
 }

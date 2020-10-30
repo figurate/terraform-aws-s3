@@ -1,6 +1,8 @@
 /**
  * # ![AWS](aws-logo.png) S3 Bucket
  *
+ * ![AWS S3 Bucket](aws_s3_bucket.png)
+ *
  * Purpose: Provision S3 Bucket in AWS.
  *
  * Rationale: Apply standards and constraints to S3 Buckets.

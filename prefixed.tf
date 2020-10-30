@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "prefixed_bucket" {
   count = var.suffix_enabled ? 1 : 0
 
   bucket_prefix = var.bucket
-  acl           = "private"
+  acl           = var.acl
   policy        = var.policy != "" ? local.policies[var.policy] : null
 
   dynamic "lifecycle_rule" {

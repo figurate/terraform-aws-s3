@@ -11,6 +11,6 @@ module "public_bucket" {
   encrypted                     = var.encrypted
   encryption_key                = var.encryption_key
   logging_bucket                = var.logging_bucket
-  public_read_cidr              = var.public_read_cidr
+  public_read_whitelist         = var.public_read_whitelist
   website_redirect              = var.website_redirect
 }

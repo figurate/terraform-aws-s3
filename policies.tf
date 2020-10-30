@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "public_read" {
 }
 
 data "aws_iam_policy_document" "public_read_cidr" {
-  count = var.public_read_cidr != "" ? 1 : 0
+  count = var.public_read_whitelist != "" ? 1 : 0
 
   statement {
     sid       = "PublicReadGetObject"
@@ -29,13 +29,13 @@ data "aws_iam_policy_document" "public_read_cidr" {
     condition {
       test     = "IpAddress"
       variable = "aws:SourceIp"
-      values   = var.public_read_cidr
+      values   = var.public_read_whitelist
     }
   }
 }
 
 locals {
   policies = {
-    public_read = var.public_read_cidr != "" ? data.aws_iam_policy_document.public_read_cidr[0].json : data.aws_iam_policy_document.public_read
+    public_read = var.public_read_whitelist != "" ? data.aws_iam_policy_document.public_read_cidr[0].json : data.aws_iam_policy_document.public_read
   }
 }

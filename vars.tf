@@ -52,7 +52,7 @@ variable "logging_bucket" {
   default     = ""
 }
 
-variable "public_read_cidr" {
+variable "public_read_whitelist" {
   description = "A CIDR IP range for restricted read access to public buckets"
   default     = ""
 }
@@ -61,3 +61,8 @@ variable "website_redirect" {
   description = "FQDN target for redirect of all website requests"
   default     = ""
 }
+
+//locals {
+//  excludes_string = "--exclude \"${join("\" --exclude \"", var.excludes)}\""
+//  includes_string = "--include \"${join("\" --include \"", var.includes)}\""
+//}
