@@ -1,10 +1,16 @@
 SHELL:=/bin/bash
-TERRAFORM_VERSION=0.12.24
-TERRAFORM=docker run --rm -v "${PWD}:/work" -e AWS_DEFAULT_REGION=$(AWS_DEFAULT_REGION) -e http_proxy=$(http_proxy) --net=host -w /work hashicorp/terraform:$(TERRAFORM_VERSION)
+TERRAFORM_VERSION=0.12.28
+TERRAFORM=docker run --rm -v "${PWD}:/work" -v "${HOME}:/root" -e AWS_DEFAULT_REGION=$(AWS_DEFAULT_REGION) -e http_proxy=$(http_proxy) --net=host -w /work hashicorp/terraform:$(TERRAFORM_VERSION)
 
 TERRAFORM_DOCS=docker run --rm -v "${PWD}:/work" tmknom/terraform-docs
 
-CHECKOV=docker run -t -v "${PWD}:/work" bridgecrew/checkov
+CHECKOV=docker run --rm -t -v "${PWD}:/work" bridgecrew/checkov
+
+TFSEC=docker run --rm -it -v "${PWD}:/work" liamg/tfsec
+
+DIAGRAMS=docker run -t -v "${PWD}:/work" figurate/diagrams python
+
+EXAMPLE=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
 
 .PHONY: all clean validate test docs format
 
@@ -15,20 +21,27 @@ clean:
 
 validate:
 	$(TERRAFORM) init && $(TERRAFORM) validate && \
-		$(TERRAFORM) init modules/encrypted && $(TERRAFORM) validate modules/encrypted
-		$(TERRAFORM) init modules/public && $(TERRAFORM) validate modules/public
+		$(TERRAFORM) init modules/website && $(TERRAFORM) validate modules/website
 
 test: validate
 	$(CHECKOV) -d /work && \
-		$(CHECKOV) -d /work/modules/encrypted && \
-		$(CHECKOV) -d /work/modules/public
+		$(CHECKOV) -d /work/modules/website
 
-docs:
-	$(TERRAFORM_DOCS) markdown ./ >./README.md && \
-		$(TERRAFORM_DOCS) markdown ./modules/encrypted >./modules/encrypted/README.md
-		$(TERRAFORM_DOCS) markdown ./modules/public >./modules/public/README.md
+#	$(TFSEC) /work && \
+#		$(TFSEC) /work/modules/website
+
+diagram:
+	$(DIAGRAMS) diagram.py
+
+docs: diagram
+	$(TERRAFORM_DOCS) markdown ./ > ./README.md && \
+		$(TERRAFORM_DOCS) markdown ./modules/website > ./modules/website/README.md
 
 format:
 	$(TERRAFORM) fmt -list=true ./ && \
-		$(TERRAFORM) fmt -list=true ./modules/encrypted
-		$(TERRAFORM) fmt -list=true ./modules/public
+		$(TERRAFORM) fmt -list=true ./modules/website && \
+		$(TERRAFORM) fmt -list=true ./examples/encrypted && \
+		$(TERRAFORM) fmt -list=true ./examples/public
+
+example:
+	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -input=false examples/$(EXAMPLE)
