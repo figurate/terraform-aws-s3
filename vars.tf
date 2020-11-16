@@ -30,6 +30,11 @@ variable "versioned" {
   default     = true
 }
 
+variable "mfa_delete" {
+  description = "Enable MFA delete for versioned objects"
+  default = true
+}
+
 variable "noncurrent_version_expiration" {
   description = "Age of non-current object versions (days) before they are deleted"
   type        = number

@@ -29,7 +29,7 @@ resource "aws_s3_bucket" "bucket" {
   #checkov:skip=CKV_AWS_21:Dynamic versioning block
   versioning {
     enabled    = var.versioned
-    mfa_delete = true
+    mfa_delete = var.mfa_delete
   }
 
   dynamic "lifecycle_rule" {

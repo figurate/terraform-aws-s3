@@ -1,5 +1,8 @@
 SHELL:=/bin/bash
-TERRAFORM_VERSION=0.12.28
+AWS_ACCOUNT?=`aws sts get-caller-identity | jq -r '.Account'`
+AWS_DEFAULT_REGION?=ap-southeast-2
+
+TERRAFORM_VERSION=0.13.4
 TERRAFORM=docker run --rm -v "${PWD}:/work" -v "${HOME}:/root" -e AWS_DEFAULT_REGION=$(AWS_DEFAULT_REGION) -e http_proxy=$(http_proxy) --net=host -w /work hashicorp/terraform:$(TERRAFORM_VERSION)
 
 TERRAFORM_DOCS=docker run --rm -v "${PWD}:/work" tmknom/terraform-docs
@@ -44,4 +47,4 @@ format:
 		$(TERRAFORM) fmt -list=true ./examples/public
 
 example:
-	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -input=false examples/$(EXAMPLE)
+	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -state=$(AWS_ACCOUNT).tfstate -input=false examples/$(EXAMPLE)

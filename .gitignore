@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 terraform-aws-s3-bucket.iml
 .terraform/
+*.tfvars
+*.tfstate*
