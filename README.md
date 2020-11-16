@@ -27,6 +27,7 @@ No requirements.
 | encryption\_key | The KMS master key used for server-side encryption | `string` | `""` | no |
 | expiration\_days | Age of bucket objects (days) before they are deleted | `number` | `0` | no |
 | logging\_bucket | Another S3 bucket used to capture audit logs | `string` | `""` | no |
+| mfa\_delete | Enable MFA delete for versioned objects | `bool` | `true` | no |
 | noncurrent\_version\_expiration | Age of non-current object versions (days) before they are deleted | `number` | `0` | no |
 | policy | Identifier for a predefined policy to apply | `string` | `""` | no |
 | public\_read\_whitelist | A CIDR IP range for restricted read access to public buckets | `string` | `""` | no |

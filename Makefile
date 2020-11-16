@@ -27,11 +27,9 @@ validate:
 		$(TERRAFORM) init modules/website && $(TERRAFORM) validate modules/website
 
 test: validate
-	$(CHECKOV) -d /work && \
-		$(CHECKOV) -d /work/modules/website
+	$(CHECKOV) -d /work
 
-#	$(TFSEC) /work && \
-#		$(TFSEC) /work/modules/website
+	#$(TFSEC) /work
 
 diagram:
 	$(DIAGRAMS) diagram.py
@@ -44,7 +42,8 @@ format:
 	$(TERRAFORM) fmt -list=true ./ && \
 		$(TERRAFORM) fmt -list=true ./modules/website && \
 		$(TERRAFORM) fmt -list=true ./examples/encrypted && \
-		$(TERRAFORM) fmt -list=true ./examples/public
+		$(TERRAFORM) fmt -list=true ./examples/public && \
+		$(TERRAFORM) fmt -list=true ./examples/terraform-state
 
 example:
 	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -state=$(AWS_ACCOUNT).tfstate -input=false examples/$(EXAMPLE)

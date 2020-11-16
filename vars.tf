@@ -32,7 +32,7 @@ variable "versioned" {
 
 variable "mfa_delete" {
   description = "Enable MFA delete for versioned objects"
-  default = true
+  default     = true
 }
 
 variable "noncurrent_version_expiration" {
