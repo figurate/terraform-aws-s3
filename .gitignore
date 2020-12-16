@@ -3,3 +3,4 @@ terraform-aws-s3-bucket.iml
 .terraform/
 *.tfvars
 *.tfstate*
+*.zip

@@ -15,7 +15,7 @@ DIAGRAMS=docker run -t -v "${PWD}:/work" figurate/diagrams python
 
 EXAMPLE=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
 
-.PHONY: all clean validate test docs format
+.PHONY: all clean validate test docs format example archive
 
 all: validate test docs format
 
@@ -47,3 +47,6 @@ format:
 
 example:
 	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -state=$(AWS_ACCOUNT).tfstate -input=false examples/$(EXAMPLE)
+
+archive:
+	zip aws-s3-bucket.zip *.tf modules/website/*.tf *.png *.md
