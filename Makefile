@@ -12,7 +12,7 @@ clean:
 
 validate:
 	$(TERRAFORM) init && $(TERRAFORM) validate && \
-		$(TERRAFORM) init modules/website && $(TERRAFORM) validate modules/website
+		$(TERRAFORM) -chdir=modules/website init && $(TERRAFORM) -chdir=modules/website validate
 
 test: validate
 	$(CHECKOV) -d /work
