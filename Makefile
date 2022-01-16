@@ -1,17 +1,5 @@
 SHELL:=/bin/bash
-AWS_ACCOUNT?=`aws sts get-caller-identity | jq -r '.Account'`
-AWS_DEFAULT_REGION?=ap-southeast-2
-
-TERRAFORM_VERSION=0.13.4
-TERRAFORM=docker run --rm -v "${PWD}:/work" -v "${HOME}:/root" -e AWS_DEFAULT_REGION=$(AWS_DEFAULT_REGION) -e http_proxy=$(http_proxy) --net=host -w /work hashicorp/terraform:$(TERRAFORM_VERSION)
-
-TERRAFORM_DOCS=docker run --rm -v "${PWD}:/work" tmknom/terraform-docs
-
-CHECKOV=docker run --rm -t -v "${PWD}:/work" bridgecrew/checkov
-
-TFSEC=docker run --rm -it -v "${PWD}:/work" liamg/tfsec
-
-DIAGRAMS=docker run -t -v "${PWD}:/work" figurate/diagrams python
+include .env
 
 EXAMPLE=$(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
 
