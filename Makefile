@@ -29,9 +29,9 @@ docs: diagram
 format:
 	$(TERRAFORM) fmt -list=true ./ && \
 		$(TERRAFORM) fmt -list=true ./modules/website && \
-		$(TERRAFORM) fmt -list=true ./examples/encrypted && \
-		$(TERRAFORM) fmt -list=true ./examples/public && \
-		$(TERRAFORM) fmt -list=true ./examples/terraform-state
+		$(TERRAFORM) fmt -list=true ./modules/encrypted && \
+		$(TERRAFORM) fmt -list=true ./modules/public && \
+		$(TERRAFORM) fmt -list=true ./modules/terraform-state
 
 example:
 	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -state=$(AWS_ACCOUNT).tfstate -input=false examples/$(EXAMPLE)
